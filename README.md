@@ -1,4 +1,4 @@
-# ioBroker-Widget Sonnenstatus [![Build Status](https://travis-ci.org/SBorg2014/Sonnenstatus.svg?branch=master)](https://travis-ci.org/SBorg2014/Sonnenstatus)
+# ioBroker-Widget Sonnenstatus 
 
 Widget, um in der VIS von ioBroker verschiedene Informationen zur Sonne darzustellen.
 Berechnet die Tageslänge und die Differenz zum Vortag, Tag des Jahres, die Kalenderwoche, Länge der Nacht, aktuelles Datum als DP (TT.MM.JJJJ)
