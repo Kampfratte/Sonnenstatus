@@ -1,7 +1,8 @@
-/* V0.0.4 vom 13.02.2019
+/* V0.0.5 vom 01.07.2019
    berechnet die Tageslänge und die Differenz zum Vortag, Tag des Jahres, die Kalenderwoche,
    Länge der Nacht, aktuelles Datum als DP (TT.MM.JJJJ)
 
+ V0.0.5 - ~ doppeltes Minuszeichen bei abnehmender Tageslänge gefixt
  V0.0.4 - ~ States mit Unit versehen
           ~ Codeoptimierung
           + aktuelles Datum als DP (TT.MM.JJJJ)
@@ -61,7 +62,7 @@ function Berechnung () {
   var Tageslaenge = Untergang - Aufgang;  // in Sekunden
   var Stunden = Math.floor(Tageslaenge/3600);
   var Minuten = Math.floor((Tageslaenge % 3600)/60);
-  
+
   var Tageslaenge_alt = getState(DP+'Tageslaenge').val;
   setState(DP+'Tageslaenge',Tageslaenge);
   setState(DP+'Tageslaenge_txt',Stunden+"h "+Minuten+"min");
@@ -69,7 +70,7 @@ function Berechnung () {
   var Minuten_Diff = Math.floor(Tageslaenge_Differenz/60);
   var Sekunden_Diff= Math.floor(Tageslaenge_Differenz % 60);
 
-  if ( Tageslaenge_Differenz < 0 ) { setState(DP+'Tageslaenge_Differenz',"-"+Minuten_Diff+"min "+Sekunden_Diff+"sek"); }
+  if ( Tageslaenge_Differenz < 0 ) { setState(DP+'Tageslaenge_Differenz',Minuten_Diff+"min "+Sekunden_Diff+"sek"); }
   if ( Tageslaenge_Differenz > 0 ) { setState(DP+'Tageslaenge_Differenz',"+"+Minuten_Diff+"min "+Sekunden_Diff+"sek"); }
   if ( Tageslaenge_Differenz = 0 ) { setState(DP+'Tageslaenge_Differenz',"0min 0sek"); }
 
@@ -97,7 +98,7 @@ function Berechnung () {
    var difftage = (heutestart - neujahr) / (24*60*60*1000) + 1;
    var tag_des_jahres = Math.ceil(difftage);
    tag_des_jahres = ("00" + tag_des_jahres).slice(-3);
-   setState(DP+'Tag_des_Jahres',tag_des_jahres); 
+   setState(DP+'Tag_des_Jahres',tag_des_jahres);
 
    // aktuelles Datum als DP
    var Datum = formatDate(new Date(), 'DD.MM.YYYY');
@@ -123,7 +124,7 @@ var MinuteMan = schedule("* * * * *", function () {
 
     // Nachtlicht (Rest) berechnen
     var Nachtlicht_rest = Restlicht * -1;
-    setState(DP+'Nachtlicht_rest',Nachtlicht_rest); 
+    setState(DP+'Nachtlicht_rest',Nachtlicht_rest);
 
     // bei Nacht die restliche Länge der Nacht in h + min?
     if ( Nachtlicht_rest > 0 ) {
@@ -133,7 +134,7 @@ var MinuteMan = schedule("* * * * *", function () {
         Restlicht_min = Math.floor((Restlicht % 3600) /60);
         setState(DP+'Restlicht_txt',Restlicht_h+"h "+Restlicht_min+"min");
     }
-     
+
 });
 
 
